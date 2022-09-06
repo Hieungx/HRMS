@@ -1,6 +1,6 @@
 # HRMS SYSTEM
 
-MAD BY:
+MADE BY:
 > Nguyễn Khánh - nguyenkhanh29121995@gmail.com
 > 
 > Nguyễn Trung Hiếu - hieuu99@gmail.com
