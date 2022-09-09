@@ -1,0 +1,18 @@
+spring:
+  redis:
+    host: localhost
+    password: redispw
+    port: 55002
+    timeout: 10000
+    pool:
+      max-idle: 50
+      min-idle: 30
+      max-active: 100
+      max-wait: 4000
+      numTestsPerEvictionRun: 80
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 30000
+jwt:
+  secret-key: hoilamgi9720
+  expire-token : #{3*60*60}
+  expire-refresh-token : #{24*60*60}
