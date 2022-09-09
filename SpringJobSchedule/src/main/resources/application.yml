@@ -1,0 +1,26 @@
+server:
+  port: 9999
+spring:
+  redis:
+    host: localhost
+    password: redispw
+    port: 55002
+    timeout: 10000
+    pool:
+      max-idle: 50
+      min-idle: 30
+      max-active: 100
+      max-wait: 4000
+      numTestsPerEvictionRun: 80
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 30000
+  kafka:
+    bootstrap-servers: localhost:9092
+    topic:
+      replication-factor: 1
+      num-partition: 3
+    producer:
+      properties:
+        schema:
+          registry:
+            url: http://localhost:8085

@@ -1,0 +1,9 @@
+server:
+  port: 9797
+  
+spring:
+  kafka:
+    consumer:
+      group-id: demo
+      auto-offset-reset: earliest
+    bootstrap-servers: localhost:29092
