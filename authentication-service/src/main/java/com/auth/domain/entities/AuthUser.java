@@ -1,33 +1,40 @@
-package com.auth.entity;
+package com.auth.domain.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "auth_user")
 public class AuthUser implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "hibernate-uuid")
-    @GenericGenerator(name = "hibernate-uuid", strategy = "hibernate-uuid")
-    @Column(name = "userId", unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id", unique = true)
     private UUID userId;
 
-    @Column(name = "username")
+    @Column(name = "user_name")
     private String username;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "roles")
-    private List<String> roles;
+    private String roles;
 }

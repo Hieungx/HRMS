@@ -1,6 +1,6 @@
-package com.auth.configuration.webSecurityConfiguration;
+package com.auth.domain.configuration.webSecurityConfiguration;
 
-import com.auth.common.AuthResponse;
+import com.auth.app.responses.AuthResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        AuthResponse<Object> authResponse = AuthResponse.error(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.name());
+        AuthResponse<Object> authResponse = AuthResponse.error(String.valueOf(HttpStatus.UNAUTHORIZED.value()), HttpStatus.UNAUTHORIZED.name());
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(authResponse);
         response.setContentType("application/json");

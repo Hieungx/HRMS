@@ -1,17 +1,18 @@
-package com.auth.service.impl;
+package com.auth.domain.services.impl;
 
-import com.auth.entity.AuthUser;
-import com.auth.repository.AuthUserRepository;
-import com.auth.service.UserService;
+import com.auth.domain.repositories.AuthUserRepository;
+import com.auth.domain.services.UserService;
+import com.auth.domain.entities.AuthUser;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.Collections;
 
-
+@Service
 public class UserServiceImpl implements UserService {
 
     @Resource

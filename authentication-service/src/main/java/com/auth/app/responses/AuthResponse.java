@@ -1,4 +1,4 @@
-package com.auth.common;
+package com.auth.app.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,18 +12,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthResponse<T> implements Serializable {
-    private Integer code;
+    private String code;
     private String message;
     private T data;
 
     public static AuthResponse ok(Object data) {
-        return AuthResponse.builder().code(HttpStatus.OK.value()).message("Successful").data(data).build();
+        return AuthResponse.builder().code(String.valueOf(HttpStatus.OK.value())).message("Successful").data(data).build();
     }
-
-    public static AuthResponse error(Integer code, String message) {
+    public static AuthResponse error(String code, String message) {
         return AuthResponse.builder().code(code).message(message).build();
-    }
-    public static AuthResponse buildAll(Integer code, String message, Object data) {
-        return AuthResponse.builder().code(code).message(message).data(data).build();
     }
 }

@@ -1,4 +1,4 @@
-package com.auth.service;
+package com.auth.domain.services;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
