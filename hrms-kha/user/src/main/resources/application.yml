@@ -1,0 +1,26 @@
+server:
+  port: 9200
+auth-client:
+  base-url: http://localhost:9100/api/auth
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/authentication
+    username: root
+    password: ''
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+  redis:
+    host: localhost
+    password: redispw
+    port: 55000
+    timeout: 10000
+    pool:
+      max-idle: 50
+      min-idle: 30
+      max-active: 100
+      max-wait: 4000
+      numTestsPerEvictionRun: 80
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 30000
