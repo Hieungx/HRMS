@@ -1,11 +1,11 @@
 package com.auth.app.controllers;
 
-import com.auth.app.dtos.AuthUserDTO;
+import com.auth.app.dtos.AccessRequestDTO;
 import com.auth.app.dtos.LoginDTO;
 import com.auth.app.responses.AuthResponse;
 import com.auth.domain.configuration.redisConfiguration.RedisRepository;
+import com.auth.domain.configuration.webSecurityConfiguration.AuthorizationConfig;
 import com.auth.domain.services.AuthService;
-import com.auth.domain.services.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.Errors;
@@ -19,29 +19,27 @@ import javax.validation.Valid;
 @RequestMapping(value = "api/auth")
 @Slf4j
 public class AuthController {
-
     @Resource
     AuthService authService;
-
-    @Resource
-    JwtService jwtService;
-
     @Resource
     RedisRepository redisRepository;
-
-    @PostMapping(value = "/login")
-    public AuthResponse login(@Valid @RequestBody LoginDTO loginDTO, Errors errors) {
+    @Resource
+    AuthorizationConfig authorizationConfig;
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public AuthResponse loginController(@Valid @RequestBody LoginDTO loginDTO, Errors errors) {
         return new AuthResponse(String.valueOf(HttpStatus.OK.value()), HttpStatus.OK.name(), authService.login(loginDTO, errors));
     }
-
-    @GetMapping(value = "/logout")
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public AuthResponse logout(HttpServletRequest request) {
-        redisRepository.delete(request.getHeader("Authorization").replace("Bearer ", ""));
-        return new AuthResponse(String.valueOf(HttpStatus.OK.value()), HttpStatus.OK.name(),"Goodbye");
+        if (!redisRepository.exists(request.getHeader("Authorization").replace("Bearer ", ""))) {
+            return new AuthResponse(String.valueOf(HttpStatus.BAD_REQUEST.value()), "You must login first", null);
+        } else {
+            redisRepository.delete(request.getHeader("Authorization").replace("Bearer ", ""));
+            return new AuthResponse(String.valueOf(HttpStatus.OK.value()), "Goodbye", null);
+        }
     }
-
-    @GetMapping(value = "/user-info")
-    public AuthUserDTO getUserInfo (HttpServletRequest request){
-        return jwtService.getUserInfoFromToken(request.getHeader("Authorization"));
+    @PostMapping(value = "/access-request")
+    public boolean accessRequest(@RequestBody AccessRequestDTO accessRequestDTO) {
+        return authorizationConfig.authorizationAllPrivateApi(accessRequestDTO);
     }
 }

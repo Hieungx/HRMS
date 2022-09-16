@@ -1,4 +1,4 @@
-package com.auth.domain.exceptions;
+package com.user.domain.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuthenticationException extends RuntimeException {
+public class BusinessException extends RuntimeException {
     String exceptionCode;
     String exceptionMessage;
-    String superMessage;
+
 }
+

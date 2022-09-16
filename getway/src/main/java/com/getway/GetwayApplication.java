@@ -1,11 +1,13 @@
-package com.auth;
+package com.getway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AuthenticationServiceApplication {
+public class GetwayApplication {
+
 	public static void main(String[] args) {
-		SpringApplication.run(AuthenticationServiceApplication.class, args);
+		SpringApplication.run(GetwayApplication.class, args);
 	}
+
 }

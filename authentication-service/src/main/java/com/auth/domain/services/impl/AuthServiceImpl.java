@@ -7,6 +7,7 @@ import com.auth.domain.entities.AuthUser;
 import com.auth.domain.exceptions.AuthenticationException;
 import com.auth.domain.repositories.AuthUserRepository;
 import com.auth.domain.services.AuthService;
+import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +22,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.validation.Errors;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @Service
@@ -49,9 +51,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthUserDTO login(LoginDTO loginDTO, Errors errors) {
-        if (errors.hasErrors()) {
-            throw new AuthenticationException(String.valueOf(HttpStatus.BAD_REQUEST.value()), errors.getFieldError() != null ? errors.getFieldError().getDefaultMessage() : HttpStatus.BAD_REQUEST.name());
-        }
         Boolean canLogin = false;
         AuthUser authUser = null;
         if (!ObjectUtils.isEmpty(loginDTO.getUsername()) && ObjectUtils.isEmpty(loginDTO.getEmail()) && ObjectUtils.isEmpty(loginDTO.getPhone())) {
@@ -84,7 +83,7 @@ public class AuthServiceImpl implements AuthService {
             redisRepository.setObject(accessToken , 60, jsonObject);
             return authUserDTO;
         } else {
-            throw new AuthenticationException(String.valueOf(HttpStatus.UNAUTHORIZED.value()), HttpStatus.UNAUTHORIZED.name());
+            throw new AuthenticationException(String.valueOf(HttpStatus.UNAUTHORIZED.value()), HttpStatus.UNAUTHORIZED.name(),null);
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.user.domain.configuration.redisConfiguration;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -27,14 +25,6 @@ public class RedisRepository {
         boolean flag = Boolean.TRUE;
         if (expiresTime > 0) {
             flag = redisTemplate.expire(key, expiresTime, TimeUnit.SECONDS);
-        }
-        return flag;
-    }
-    public boolean setObject(final String key, final int expiresTime, final JSONObject value) {
-        redisTemplate.opsForValue().set(key, value.toString());
-        boolean flag = Boolean.TRUE;
-        if (expiresTime > 0) {
-            flag = redisTemplate.expire(key, expiresTime, TimeUnit.MINUTES);
         }
         return flag;
     }

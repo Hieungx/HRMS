@@ -1,14 +1,12 @@
 package com.user.domain.service.feign;
 
-import com.user.app.dtos.AuthUserDTO;
+import com.user.app.dtos.AccessRequestDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "authClient", url = "${auth-client.base-url}")
 public interface AuthClient {
-    String AUTH_TOKEN = "Authorization";
-
-    @GetMapping(value = "/user-info")
-    AuthUserDTO userInfo(@RequestHeader(AUTH_TOKEN) String bearerToken);
+    @PostMapping(value = "/access-request")
+    boolean accessCheck(@RequestBody AccessRequestDTO accessRequestDTO);
 }

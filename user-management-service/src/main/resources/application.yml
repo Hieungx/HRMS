@@ -14,7 +14,7 @@ spring:
   redis:
     host: localhost
     password: redispw
-    port: 55000
+    port: 55001
     timeout: 10000
     pool:
       max-idle: 50

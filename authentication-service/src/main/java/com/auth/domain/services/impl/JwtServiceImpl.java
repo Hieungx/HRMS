@@ -9,6 +9,7 @@ import com.auth.domain.services.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -59,7 +60,7 @@ public class JwtServiceImpl implements JwtService {
         } catch (Exception ex) {
             log.error(ex.getMessage());
             ex.printStackTrace();
-            throw new AuthenticationException(String.valueOf(HttpStatus.UNAUTHORIZED.value()), HttpStatus.UNAUTHORIZED.name());
+            throw new AuthenticationException(String.valueOf(HttpStatus.UNAUTHORIZED.value()), HttpStatus.UNAUTHORIZED.name(), ex.getMessage());
         }
     }
     @Override
